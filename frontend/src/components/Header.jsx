@@ -20,7 +20,7 @@ export default function Header() {
       <form>
         <TextInput
           type="text"
-          placeholder="search..."
+          placeholder="Search..."
           rightIcon={RiSearchLine}
           className="hidden lg:inline"
         />
