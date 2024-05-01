@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+// signup user
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -26,6 +27,7 @@ export const signup = async (req, res, next) => {
     next(error);
   }
 };
+// signin user
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password || email === "" || password === "") {
@@ -52,6 +54,7 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
+// signin user with google
 export const google = async (req, res, next) => {
   const { name, email, googlePhotoURL } = req.body;
   try {
