@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "/profileimg.webp",
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
