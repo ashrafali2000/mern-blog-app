@@ -79,6 +79,15 @@ export const CommentSection = ({ postId }) => {
       console.log(error.message);
     }
   };
+  const handleEdit = async (comment, editedContent) => {
+    setComments(
+      comments.map((c) =>
+        c._id === comment._id ? { ...c, content: editedContent } : c
+      )
+    );
+    console.log("comment------->", comment);
+    console.log("editedContent------->", editedContent);
+  };
   return (
     <div className="max-w-2xl mx-auto w-full p-3">
       {currentUser ? (
@@ -142,6 +151,7 @@ export const CommentSection = ({ postId }) => {
               key={Math.random()}
               comment={comment}
               onLike={handleLike}
+              onEdit={handleEdit}
             />
           ))}
         </>
