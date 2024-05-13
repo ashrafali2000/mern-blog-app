@@ -6,6 +6,7 @@ import {
   HiOutlineUserGroup,
   HiUser,
 } from "react-icons/hi";
+import { TfiCommentAlt } from "react-icons/tfi";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice";
@@ -70,6 +71,17 @@ export const DashSidebar = () => {
                 as="div"
               >
                 Users
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to={"/dashboard/?tab=comments"}>
+              <Sidebar.Item
+                active={tab === "comments"}
+                icon={TfiCommentAlt}
+                as="div"
+              >
+                Comments
               </Sidebar.Item>
             </Link>
           )}
