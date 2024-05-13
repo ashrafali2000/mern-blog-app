@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
 import {
+  HiAnnotation,
   HiArrowSmRight,
+  HiChartPie,
   HiDocumentText,
   HiOutlineUserGroup,
   HiUser,
@@ -42,6 +44,17 @@ export const DashSidebar = () => {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-1">
+          {currentUser && currentUser.isAdmin && (
+            <Link to={"/dashboard/?tab=dash"}>
+              <Sidebar.Item
+                icon={HiChartPie}
+                active={tab === "dash" || !tab}
+                labelColor="dark"
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
           <Link to={"/dashboard/?tab=profile"}>
             <Sidebar.Item
               active={tab === "profile"}
@@ -78,7 +91,7 @@ export const DashSidebar = () => {
             <Link to={"/dashboard/?tab=comments"}>
               <Sidebar.Item
                 active={tab === "comments"}
-                icon={TfiCommentAlt}
+                icon={HiAnnotation}
                 as="div"
               >
                 Comments
