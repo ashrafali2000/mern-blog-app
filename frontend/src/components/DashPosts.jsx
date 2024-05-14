@@ -11,11 +11,13 @@ const DashPosts = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
-  console.log("userPosts---->", userPosts);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+        const res = await fetch(
+          `https://mern-blog-app-one.vercel.app/api/post/getposts?userId=${currentUser._id}`
+        );
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
@@ -35,7 +37,7 @@ const DashPosts = () => {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `https://mern-blog-app-one.vercel.app/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -52,7 +54,7 @@ const DashPosts = () => {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `https://mern-blog-app-one.vercel.app/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
         }

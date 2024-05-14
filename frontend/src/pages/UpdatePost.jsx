@@ -84,7 +84,7 @@ function UPdatePost() {
     e.preventDefault();
     try {
       const res = await fetch(
-        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        `https://mern-blog-app-one.vercel.app/api/post/updatepost/${formData._id}/${currentUser._id}`,
         {
           method: "PUT",
           headers: {
