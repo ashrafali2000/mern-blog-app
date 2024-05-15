@@ -6,9 +6,7 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch(
-        "https://mern-blog-app-one.vercel.app/api/post/getposts"
-      );
+      const res = await fetch("/api/post/getposts");
       const data = await res.json();
       setPosts(data.posts);
     };

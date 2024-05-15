@@ -99,16 +99,13 @@ export const DashProfile = () => {
     }
     try {
       dispatch(updateStart());
-      const res = await fetch(
-        `https://mern-blog-app-one.vercel.app/api/user/update/${currentUser._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       const data = await res.json();
       if (!res.ok) {
         dispatch(updateFailure(data.message));
@@ -126,12 +123,9 @@ export const DashProfile = () => {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(
-        `https://mern-blog-app-one.vercel.app/api/user/delete/${currentUser._id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
       const data = await res.json();
       if (!res.ok) {
         dispatch(deleteUserFailure(data.message));
@@ -144,12 +138,9 @@ export const DashProfile = () => {
   };
   const handleSignOut = async () => {
     try {
-      const res = await fetch(
-        "https://mern-blog-app-one.vercel.app/api/user/signout",
-        {
-          method: "POST",
-        }
-      );
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
       const data = await res.json();
       if (!res.ok) {
         console.log("data-error", data.message);

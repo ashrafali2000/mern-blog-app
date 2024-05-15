@@ -15,18 +15,15 @@ export default function OAuth() {
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const resultFromGoogle = await signInWithPopup(auth, provider);
-      const res = await fetch(
-        "https://mern-blog-app-one.vercel.app/api/auth/google",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: resultFromGoogle.user.displayName,
-            email: resultFromGoogle.user.email,
-            googlePhotoURL: resultFromGoogle.user.photoURL,
-          }),
-        }
-      );
+      const res = await fetch("/api/auth/google", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: resultFromGoogle.user.displayName,
+          email: resultFromGoogle.user.email,
+          googlePhotoURL: resultFromGoogle.user.photoURL,
+        }),
+      });
       const data = await res.json();
       if (res.ok) {
         dispatch(signInSuccess(data));

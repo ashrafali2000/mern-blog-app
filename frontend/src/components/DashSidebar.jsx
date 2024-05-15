@@ -27,12 +27,9 @@ export const DashSidebar = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch(
-        "https://mern-blog-app-one.vercel.app/api/user/signout",
-        {
-          method: "POST",
-        }
-      );
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
       const data = await res.json();
       if (!res.ok) {
         console.log("data-error", data.message);
