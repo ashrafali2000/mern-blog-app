@@ -26,7 +26,9 @@ function UPdatePost() {
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch(`/api/post/getposts?postId=${postId}`);
+        const res = await fetch(
+          `https://mern-blog-app-one.vercel.app/api/post/getposts?postId=${postId}`
+        );
         const data = await res.json();
         if (!res.ok) {
           console.log(data.message);
@@ -84,7 +86,7 @@ function UPdatePost() {
     e.preventDefault();
     try {
       const res = await fetch(
-        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        `https://mern-blog-app-one.vercel.app/api/post/updatepost/${formData._id}/${currentUser._id}`,
         {
           method: "PUT",
           headers: {
