@@ -51,6 +51,8 @@ export const signin = async (req, res, next) => {
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Only send cookie over HTTPS in production
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Adjust SameSite attribute as needed
       })
       .json(rest);
   } catch (error) {

@@ -23,7 +23,12 @@ mongoose
   });
 // const __dirname = path.resolve();
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://mern-blog-app-py3d.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.listen(3000, () => {
