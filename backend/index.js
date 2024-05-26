@@ -24,7 +24,7 @@ mongoose
 const app = express();
 app.use(
   cors({
-    origin: "https://mern-blog-app-py3d.vercel.app/", // Replace with your frontend domain
+    // origin: "https://mern-blog-app-py3d.vercel.app/", // Replace with your frontend domain
     credentials: true,
   })
 );
