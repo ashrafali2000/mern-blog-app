@@ -52,7 +52,7 @@ export const signin = async (req, res, next) => {
       .cookie("access_token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production", // Ensures the cookie is sent only over HTTPS
-        // sameSite: "strict", // Helps mitigate CSR
+        sameSite: "strict", // Helps mitigate CSR
       })
       .json(rest);
   } catch (error) {
