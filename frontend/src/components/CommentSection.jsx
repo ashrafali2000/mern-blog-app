@@ -71,6 +71,7 @@ export const CommentSection = ({ postId }) => {
       );
 
       const data = res;
+      console.log("data-----data like------>", data);
       setComments(
         comments.map((comment) =>
           comment._id === commentId
