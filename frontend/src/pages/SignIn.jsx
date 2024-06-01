@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import {
   signInFailure,
   signInStart,
@@ -22,27 +23,51 @@ export default function SignIn() {
     if (!formData.email || !formData.password) {
       return dispatch(signInFailure("Please fill all the fields"));
     }
+    // try {
+    //   dispatch(signInStart());
+    //   const res = await fetch(
+    //     "https://mern-blog-app-one.vercel.app/api/auth/signin",
+    //     {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify(formData),
+    //       credentials: "include",
+    //     }
+    //   );
+    //   const data = await res.json();
+    //   if (data.success === false) {
+    //     dispatch(signInFailure(data.message));
+    //   }
+    //   if (res.ok) {
+    //     dispatch(signInSuccess(data));
+    //     navigate("/");
+    //   }
+    // } catch (error) {
+    //   dispatch(signInFailure(error.message));
+    // }
+
     try {
       dispatch(signInStart());
-      const res = await fetch(
+      const res = await axios.post(
         "https://mern-blog-app-one.vercel.app/api/auth/signin",
+        formData,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-          credentials: "include", // Include credentials (cookies)
+          withCredentials: true, // Include credentials (cookies)
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (data.success === false) {
         dispatch(signInFailure(data.message));
-      }
-      if (res.ok) {
+      } else {
         dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      dispatch(
+        signInFailure(
+          error.response ? error.response.data.message : error.message
+        )
+      );
     }
   };
   return (
