@@ -30,7 +30,7 @@ export const CommentSection = ({ postId }) => {
           withCredentials: true,
         }
       );
-      const data = res.data;
+      const data = res;
       if (res.ok) {
         setComment("");
         setCommentError(null);
@@ -48,7 +48,8 @@ export const CommentSection = ({ postId }) => {
           `https://mern-blog-app-one.vercel.app/api/comment/getPostComments/${postId}`
         );
         if (res.ok) {
-          const data = res.data;
+          const data = res;
+          console.log("data-----comments------>", data);
           setComments(data);
         }
       } catch (error) {
