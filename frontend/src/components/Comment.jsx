@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import { Button, Textarea } from "flowbite-react";
+import axios from "axios";
 import moment from "moment";
 import { useSelector } from "react-redux";
 export const Comment = ({ comment, onLike, onEdit, onDelete }) => {

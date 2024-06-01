@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import axios from "axios";
 import { Comment } from "./Comment";
 export const CommentSection = ({ postId }) => {
   const navigate = useNavigate();
@@ -18,21 +19,18 @@ export const CommentSection = ({ postId }) => {
       return;
     }
     try {
-      const res = await fetch(
+      const res = await axios.post(
         "https://mern-blog-app-one.vercel.app/api/comment/create",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            content: comment,
-            postId,
-            userId: currentUser._id,
-          }),
+          content: comment,
+          postId,
+          userId: currentUser._id,
+        },
+        {
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (res.ok) {
         setComment("");
         setCommentError(null);
