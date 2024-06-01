@@ -63,26 +63,25 @@ export const CommentSection = ({ postId }) => {
         navigate("/sign-in");
         return;
       }
-      const res = await fetch(
+      const res = await axios.put(
         `https://mern-blog-app-one.vercel.app/api/comment/likeComment/${commentId}`,
         {
-          method: "PUT",
+          withCredentials: true,
         }
       );
-      if (res.ok) {
-        const data = await res.json();
-        setComments(
-          comments.map((comment) =>
-            comment._id === commentId
-              ? {
-                  ...comment,
-                  likes: data.likes,
-                  numberOfLikes: data.likes.length,
-                }
-              : comment
-          )
-        );
-      }
+
+      const data = res;
+      setComments(
+        comments.map((comment) =>
+          comment._id === commentId
+            ? {
+                ...comment,
+                likes: data.likes,
+                numberOfLikes: data.likes.length,
+              }
+            : comment
+        )
+      );
     } catch (error) {
       console.log(error.message);
     }
@@ -101,16 +100,14 @@ export const CommentSection = ({ postId }) => {
         navigate("/sign-in");
         return;
       }
-      const res = await fetch(
+      const res = await axios.delete(
         `https://mern-blog-app-one.vercel.app/api/comment/deleteComment/${commentId}`,
         {
-          method: "DELETE",
+          withCredentials: true,
         }
       );
-      const data = await res.json();
-      if (res.ok) {
-        setComments(comments.filter((comment) => comment._id !== commentId));
-      }
+      const data = res;
+      setComments(comments.filter((comment) => comment._id !== commentId));
     } catch (error) {
       console.log(error.message);
     }
