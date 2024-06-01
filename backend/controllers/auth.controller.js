@@ -50,11 +50,11 @@ export const signin = async (req, res, next) => {
     res
       .status(200)
       .cookie("access_token", token, {
-        path: "/",
-        httpOnly: false,
-        expires: new Date(Date.now() + 900000),
-        sameSite: "none",
-        secure: true,
+        path: "/sign-in",
+        httpOnly: true, // Make it HTTP only for security
+        secure: process.env.NODE_ENV === "production", // Secure in production
+        sameSite: "none", // Allow cross-site cookie
+        expires: new Date(Date.now() + 900000), // 15 minutes
       })
       .json(rest);
   } catch (error) {
