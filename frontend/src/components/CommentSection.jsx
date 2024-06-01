@@ -51,7 +51,7 @@ export const CommentSection = ({ postId }) => {
           }
         );
         if (res.ok) {
-          const data = await res.json();
+          const data = res.data;
           setComments(data);
         }
       } catch (error) {
