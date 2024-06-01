@@ -30,7 +30,7 @@ export const CommentSection = ({ postId }) => {
           withCredentials: true,
         }
       );
-      const data = res;
+      const data = res.data;
       if (res.ok) {
         setComment("");
         setCommentError(null);
@@ -45,7 +45,10 @@ export const CommentSection = ({ postId }) => {
     const getComments = async () => {
       try {
         const res = await axios.get(
-          `https://mern-blog-app-one.vercel.app/api/comment/getPostComments/${postId}`
+          `https://mern-blog-app-one.vercel.app/api/comment/getPostComments/${postId}`,
+          {
+            withCredentials: true,
+          }
         );
         if (res.ok) {
           const data = res;
