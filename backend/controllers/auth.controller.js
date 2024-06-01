@@ -50,7 +50,7 @@ export const signin = async (req, res, next) => {
     res
       .status(200)
       .cookie("access_token", token, {
-        path: "/sign-in",
+        path: "/",
         httpOnly: true, // Make it HTTP only for security
         secure: process.env.NODE_ENV === "production", // Secure in production
         sameSite: "none", // Allow cross-site cookie
