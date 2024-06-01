@@ -70,7 +70,7 @@ export const CommentSection = ({ postId }) => {
         }
       );
 
-      const data = res;
+      const data = res.data;
       console.log("data-----data like------>", data);
       setComments(
         comments.map((comment) =>
