@@ -31,11 +31,9 @@ export const CommentSection = ({ postId }) => {
         }
       );
       const data = res.data;
-      if (res.ok) {
-        setComment("");
-        setCommentError(null);
-        setComments([data, ...comments]);
-      }
+      setComment("");
+      setCommentError(null);
+      setComments([data, ...comments]);
     } catch (error) {
       setCommentError(error.message);
     }
