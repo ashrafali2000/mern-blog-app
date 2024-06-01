@@ -50,11 +50,9 @@ export const CommentSection = ({ postId }) => {
             withCredentials: true,
           }
         );
-        if (res.ok) {
-          const data = res;
-          console.log("data-----comments------>", data);
-          setComments(data);
-        }
+        console.log("data-----comments------>", data);
+        const data = res;
+        setComments(data);
       } catch (error) {
         console.log(error.message);
       }
