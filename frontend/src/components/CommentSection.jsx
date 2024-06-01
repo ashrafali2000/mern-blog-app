@@ -44,8 +44,11 @@ export const CommentSection = ({ postId }) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(
-          `https://mern-blog-app-one.vercel.app/api/comment/getPostComments/${postId}`
+        const res = await axios.get(
+          `https://mern-blog-app-one.vercel.app/api/comment/getPostComments/${postId}`,
+          {
+            withCredentials: true,
+          }
         );
         if (res.ok) {
           const data = await res.json();
