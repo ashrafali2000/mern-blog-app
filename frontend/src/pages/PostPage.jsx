@@ -24,12 +24,12 @@ const PostPage = () => {
         );
         console.log("res----postPage------->", res);
         const data = await res.data;
-        if (!res.status === 200) {
+        if (!res.status === 200 || res.status === 201) {
           setError(true);
           setLoading(false);
           return;
         }
-        if (res.status == 200) {
+        if (res.status === 200 || res.status === 201) {
           setPost(data.posts[0]);
           setLoading(false);
           setError(false);
@@ -52,7 +52,7 @@ const PostPage = () => {
           }
         );
         const data = await res.data;
-        if (res.status == 200) {
+        if (res.status === 200 || res.status === 201) {
           setRecentPosts(data.posts);
         }
       };
