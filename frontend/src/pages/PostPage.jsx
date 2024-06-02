@@ -52,6 +52,7 @@ const PostPage = () => {
           }
         );
         const data = res.data;
+        console.log("res----posts------->", res);
         if (res.status === 200 || res.status === 201) {
           setRecentPosts(data.posts);
         }
