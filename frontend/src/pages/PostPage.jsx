@@ -22,6 +22,7 @@ const PostPage = () => {
             withCredentials: true,
           }
         );
+        console.log("res----postPage------->", res);
         const data = await res.data;
         if (!res.status === 200) {
           setError(true);
