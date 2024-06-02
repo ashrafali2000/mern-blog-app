@@ -36,10 +36,8 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
           content: editContent,
         }
       );
-      if (res) {
-        setIsEditing(false);
-        onEdit(comment, editContent);
-      }
+      setIsEditing(false);
+      onEdit(comment, editContent);
     } catch (error) {
       console.log(error.message);
     }
