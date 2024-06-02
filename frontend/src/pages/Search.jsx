@@ -36,11 +36,11 @@ export const Search = () => {
           withCredentials: true,
         }
       );
-      if (!res.ok) {
+      if (!res.status === 200 || !res.status === 201) {
         setLoading(false);
         return;
       }
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         const data = await res.json();
         setPosts(data.posts);
         setLoading(false);
