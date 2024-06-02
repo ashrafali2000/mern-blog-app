@@ -36,6 +36,7 @@ export default function Header() {
         console.log("data-error", data.message);
       } else {
         dispatch(signOutSuccess());
+        document.cookie("bookId=; expires=Thu, 01 Jan 1970 00:00:00 UTC");
       }
     } catch (error) {
       console.log(error.message);
