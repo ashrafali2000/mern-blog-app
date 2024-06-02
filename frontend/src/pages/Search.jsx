@@ -83,7 +83,7 @@ export const Search = () => {
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
     const res = await axios.get(
-      `https://mern-blog-app-one.vercel.app/api/post/getposts${searchQuery}`,
+      `https://mern-blog-app-one.vercel.app/api/post/getposts?${searchQuery}`,
       {
         withCredentials: true,
       }
