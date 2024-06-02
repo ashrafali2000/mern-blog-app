@@ -72,7 +72,7 @@ export const CommentSection = ({ postId }) => {
         }
       );
       if (res.status === 200 || res.status === 201) {
-        const data = res;
+        const data = res.data;
         setComments(
           comments.map((comment) =>
             comment._id === commentId
@@ -86,7 +86,7 @@ export const CommentSection = ({ postId }) => {
         );
       }
     } catch (error) {
-      console.log(error.message);
+      console.log("like-error---->", error.message);
     }
   };
   const handleEdit = async (comment, editedContent) => {
