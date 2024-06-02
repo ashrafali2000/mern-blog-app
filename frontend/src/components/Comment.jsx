@@ -28,7 +28,6 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
     };
     getUser();
   }, [comment]);
-  console.log("comment-------------->", comment);
   const handleEdit = async () => {
     setIsEditing(true);
     setEditContent(comment.content);
