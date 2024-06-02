@@ -23,12 +23,12 @@ const PostPage = () => {
           }
         );
         const data = await res.data;
-        if (!res.ok) {
+        if (!res.status === 200) {
           setError(true);
           setLoading(false);
           return;
         }
-        if (res.ok) {
+        if (res.status === 200) {
           setPost(data.posts[0]);
           setLoading(false);
           setError(false);
@@ -51,7 +51,7 @@ const PostPage = () => {
           }
         );
         const data = await res.data;
-        if (res.ok) {
+        if (res.status === 200) {
           setRecentPosts(data.posts);
         }
       };
