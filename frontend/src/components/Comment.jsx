@@ -13,7 +13,10 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `https://mern-blog-app-one.vercel.app/api/user/${comment.userId}`
+          `https://mern-blog-app-one.vercel.app/api/user/${comment.userId}`,
+          {
+            withCredentials: true,
+          }
         );
         const data = res.data;
         setUser(data);
@@ -34,24 +37,15 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
         `https://mern-blog-app-one.vercel.app/api/comment/editComment/${comment._id}`,
         {
           content: editContent,
+        },
+        {
+          withCredentials: true,
         }
       );
       setIsEditing(false);
       onEdit(comment, editContent);
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code that falls out of the range of 2xx
-        console.log("Response data:", error.response.data);
-        console.log("Response status:", error.response.status);
-        console.log("Response headers:", error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.log("Request data:", error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log("Error message:", error.message);
-      }
-      console.log("Error config:", error.config);
+      console.log(error.message);
     }
   };
   return (
