@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Button, Modal, Table } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
@@ -15,10 +16,13 @@ const DashUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(
-          `https://mern-blog-app-one.vercel.app/api/user/getusers`
+        const res = await axios.get(
+          `https://mern-blog-app-one.vercel.app/api/user/getusers`,
+          {
+            withCredentials: true,
+          }
         );
-        const data = await res.json();
+        const data = res.data;
         if (res.ok) {
           setUsers(data.users);
           if (data.users.length < 9) {
@@ -36,10 +40,13 @@ const DashUsers = () => {
   const handleShowMore = async () => {
     const startIndex = users.length;
     try {
-      const res = await fetch(
-        `https://mern-blog-app-one.vercel.app/api/user/getusers?startIndex=${startIndex}`
+      const res = await axios.get(
+        `https://mern-blog-app-one.vercel.app/api/user/getusers?startIndex=${startIndex}`,
+        {
+          withCredentials: true,
+        }
       );
-      const data = await res.json();
+      const data = res.data;
       if (res.ok) {
         setUsers((prev) => [...prev, ...data.users]);
         if (data.users.length < 9) {
@@ -53,10 +60,10 @@ const DashUsers = () => {
   const handleDeleteUser = async () => {
     setShowModal(false);
     try {
-      const res = await fetch(
+      const res = await axios.delete(
         `https://mern-blog-app-one.vercel.app/api/user/delete/${userIdToDelete}`,
         {
-          method: "DELETE",
+          withCredentials: true,
         }
       );
       if (!res.ok) {

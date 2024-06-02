@@ -9,6 +9,7 @@ import {
 import { TfiCommentAlt } from "react-icons/tfi";
 import { Button, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const DashBoardComp = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
@@ -23,45 +24,50 @@ const DashBoardComp = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(
-          "https://mern-blog-app-one.vercel.app/api/user/getusers?limit=5"
+        const res = await axios.get(
+          "https://mern-blog-app-one.vercel.app/api/user/getusers?limit=5",
+          {
+            withCredentials: true,
+          }
         );
-        const data = await res.json();
-        if (res.ok) {
-          setUsers(data.users);
-          setTotalUsers(data.totalUsers);
-          setLastMonthUsers(data.lastMonthUsers);
-        }
+        const data = res.data;
+        setUsers(data.users);
+        setTotalUsers(data.totalUsers);
+        setLastMonthUsers(data.lastMonthUsers);
       } catch (error) {
         console.log(error.message);
       }
     };
     const fetchPosts = async () => {
       try {
-        const res = await fetch(
-          "https://mern-blog-app-one.vercel.app/api/post/getposts?limit=5"
+        const res = await axios.get(
+          "https://mern-blog-app-one.vercel.app/api/post/getposts?limit=5",
+          {
+            withCredentials: true,
+          }
         );
-        const data = await res.json();
-        if (res.ok) {
-          setPosts(data.posts);
-          setTotalPosts(data.totalPosts);
-          setLastMonthPosts(data.lastMonthPosts);
-        }
+        const data = res.data;
+
+        setPosts(data.posts);
+        setTotalPosts(data.totalPosts);
+        setLastMonthPosts(data.lastMonthPosts);
       } catch (error) {
         console.log(error.message);
       }
     };
     const fetchComments = async () => {
       try {
-        const res = await fetch(
-          "https://mern-blog-app-one.vercel.app/api/comment/getcomments?limit=5"
+        const res = await axios.get(
+          "https://mern-blog-app-one.vercel.app/api/comment/getcomments?limit=5",
+          {
+            withCredentials: true,
+          }
         );
-        const data = await res.json();
-        if (res.ok) {
-          setComments(data.comments);
-          setTotalComments(data.totalComments);
-          setLastMonthComments(data.lastMonthComments);
-        }
+        const data = res.data;
+
+        setComments(data.comments);
+        setTotalComments(data.totalComments);
+        setLastMonthComments(data.lastMonthComments);
       } catch (error) {
         console.log(error.message);
       }

@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import PostCard from "../components/PostCard";
+import axios from "axios";
 export default function Home() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch(
-        "https://mern-blog-app-one.vercel.app/api/post/getposts"
+      const res = await axios.get(
+        "https://mern-blog-app-one.vercel.app/api/post/getposts",
+        {
+          withCredentials: true,
+        }
       );
-      const data = await res.json();
+      const data = await res.data;
       setPosts(data.posts);
     };
     fetchPosts();

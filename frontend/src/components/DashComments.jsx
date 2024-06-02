@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Button, Modal, Table } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
@@ -14,15 +15,17 @@ const DashComments = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(
-          `https://mern-blog-app-one.vercel.app/api/comment/getcomments`
-        );
-        const data = await res.json();
-        if (res.ok) {
-          setComments(data.comments);
-          if (data.comments.length < 9) {
-            setShowMore(false);
+        const res = await axios.get(
+          `https://mern-blog-app-one.vercel.app/api/comment/getcomments`,
+          {
+            withCredentials: true,
           }
+        );
+        const data = res.data;
+
+        setComments(data.comments);
+        if (data.comments.length < 9) {
+          setShowMore(false);
         }
       } catch (error) {
         console.log(error.message);
@@ -35,10 +38,13 @@ const DashComments = () => {
   const handleShowMore = async () => {
     const startIndex = comments.length;
     try {
-      const res = await fetch(
-        `https://mern-blog-app-one.vercel.app/api/comment/getcomments?startIndex=${startIndex}`
+      const res = await axios.get(
+        `https://mern-blog-app-one.vercel.app/api/comment/getcomments?startIndex=${startIndex}`,
+        {
+          withCredentials: true,
+        }
       );
-      const data = await res.json();
+      const data = res.data;
       if (res.ok) {
         setComments((prev) => [...prev, ...data.comments]);
         if (data.comments.length < 9) {
@@ -52,19 +58,16 @@ const DashComments = () => {
   const handleDeleteComment = async () => {
     setShowModal(false);
     try {
-      const res = await fetch(
+      const res = await axios.delete(
         `https://mern-blog-app-one.vercel.app/api/comment/deleteComment/${commentIdToDelete}`,
         {
-          method: "DELETE",
+          withCredentials: true,
         }
       );
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
-        setComments((prev) =>
-          prev.filter((comment) => comment._id !== commentIdToDelete)
-        );
-      }
+
+      setComments((prev) =>
+        prev.filter((comment) => comment._id !== commentIdToDelete)
+      );
     } catch (error) {
       console.log(error.message);
     }

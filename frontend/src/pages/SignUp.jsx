@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import axios from "axios";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -20,12 +21,11 @@ export default function SignUp() {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(
+      const res = await axios.post(
         "https://mern-blog-app-one.vercel.app/api/auth/signup",
+        formData,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          withCredentials: true,
         }
       );
       const data = await res.json();

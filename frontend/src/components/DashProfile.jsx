@@ -22,6 +22,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
 export const DashProfile = () => {
   const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
@@ -99,17 +100,14 @@ export const DashProfile = () => {
     }
     try {
       dispatch(updateStart());
-      const res = await fetch(
+      const res = await axios.put(
         `https://mern-blog-app-one.vercel.app/api/user/update/${currentUser._id}`,
+        formData,
         {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (!res.ok) {
         dispatch(updateFailure(data.message));
         setUpdateUserError(data.message);
@@ -126,13 +124,13 @@ export const DashProfile = () => {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(
+      const res = await axios.delete(
         `https://mern-blog-app-one.vercel.app/api/user/delete/${currentUser._id}`,
         {
-          method: "DELETE",
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (!res.ok) {
         dispatch(deleteUserFailure(data.message));
       } else {
@@ -144,13 +142,13 @@ export const DashProfile = () => {
   };
   const handleSignOut = async () => {
     try {
-      const res = await fetch(
+      const res = await axios.post(
         "https://mern-blog-app-one.vercel.app/api/user/signout",
         {
-          method: "POST",
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (!res.ok) {
         console.log("data-error", data.message);
       } else {

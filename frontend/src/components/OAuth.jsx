@@ -6,6 +6,7 @@ import { app } from "../firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signInSuccess } from "../redux/user/userSlice";
+import axios from "axios";
 export default function OAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,19 +16,18 @@ export default function OAuth() {
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const resultFromGoogle = await signInWithPopup(auth, provider);
-      const res = await fetch(
+      const res = await axios.post(
         "https://mern-blog-app-one.vercel.app/api/auth/google",
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: resultFromGoogle.user.displayName,
-            email: resultFromGoogle.user.email,
-            googlePhotoURL: resultFromGoogle.user.photoURL,
-          }),
+          name: resultFromGoogle.user.displayName,
+          email: resultFromGoogle.user.email,
+          googlePhotoURL: resultFromGoogle.user.photoURL,
+        },
+        {
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");

@@ -13,6 +13,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { app } from "../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 function UPdatePost() {
   const { currentUser } = useSelector((state) => state.user);
   const { postId } = useParams();
@@ -26,10 +27,13 @@ function UPdatePost() {
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch(
-          `https://mern-blog-app-one.vercel.app/api/post/getposts?postId=${postId}`
+        const res = await axios.get(
+          `https://mern-blog-app-one.vercel.app/api/post/getposts?postId=${postId}`,
+          {
+            withCredentials: true,
+          }
         );
-        const data = await res.json();
+        const data = res.data;
         if (!res.ok) {
           console.log(data.message);
           setPublishError(data.message);
@@ -85,17 +89,14 @@ function UPdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
+      const res = await axios.put(
         `https://mern-blog-app-one.vercel.app/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        formData,
         {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (!res.ok) {
         setPublishError(data.message);
         return;

@@ -6,6 +6,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signOutSuccess } from "../redux/user/userSlice";
+import axios from "axios";
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -24,13 +25,13 @@ export default function Header() {
   }, [location.search]);
   const handleSignOut = async () => {
     try {
-      const res = await fetch(
+      const res = await axios.post(
         "https://mern-blog-app-one.vercel.app/api/user/signout",
         {
-          method: "POST",
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (!res.ok) {
         console.log("data-error", data.message);
       } else {

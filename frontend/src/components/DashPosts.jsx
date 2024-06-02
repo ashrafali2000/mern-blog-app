@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Button, Modal, Table } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
@@ -15,15 +16,16 @@ const DashPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(
-          `https://mern-blog-app-one.vercel.app/api/post/getposts?userId=${currentUser._id}`
-        );
-        const data = await res.json();
-        if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
-            setShowMore(false);
+        const res = await axios.get(
+          `https://mern-blog-app-one.vercel.app/api/post/getposts?userId=${currentUser._id}`,
+          {
+            withCredentials: true,
           }
+        );
+        const data = res.data;
+        setUserPosts(data.posts);
+        if (data.posts.length < 9) {
+          setShowMore(false);
         }
       } catch (error) {
         console.log(error.message);
@@ -36,15 +38,17 @@ const DashPosts = () => {
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
-      const res = await fetch(
-        `https://mern-blog-app-one.vercel.app/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setUserPosts((prev) => [...prev, ...data.posts]);
-        if (data.posts.length < 9) {
-          setShowMore(false);
+      const res = await axios.get(
+        `https://mern-blog-app-one.vercel.app/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,
+        {
+          withCredentials: true,
         }
+      );
+      const data = res.data;
+
+      setUserPosts((prev) => [...prev, ...data.posts]);
+      if (data.posts.length < 9) {
+        setShowMore(false);
       }
     } catch (error) {
       console.log(error.message);
@@ -53,19 +57,16 @@ const DashPosts = () => {
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
-      const res = await fetch(
+      const res = await axios.delete(
         `https://mern-blog-app-one.vercel.app/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
-          method: "DELETE",
+          withCredentials: true,
         }
       );
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
-        setUserPosts((prev) =>
-          prev.filter((post) => post._id !== postIdToDelete)
-        );
-      }
+
+      setUserPosts((prev) =>
+        prev.filter((post) => post._id !== postIdToDelete)
+      );
     } catch (error) {
       console.log(error.message);
     }

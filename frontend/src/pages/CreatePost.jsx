@@ -12,6 +12,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { app } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 function CreatePost() {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
@@ -60,17 +61,14 @@ function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
+      const res = await axios.post(
         "https://mern-blog-app-one.vercel.app/api/post/create",
+        formData,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          withCredentials: true,
         }
       );
-      const data = await res.json();
+      const data = res.data;
       if (!res.ok) {
         setPublishError(data.message);
         return;

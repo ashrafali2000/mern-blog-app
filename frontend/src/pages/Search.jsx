@@ -2,6 +2,7 @@ import { Button, Select, TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
+import axios from "axios";
 export const Search = () => {
   const [sideBarData, setSideBarData] = useState({
     searchTerm: "",
@@ -29,8 +30,11 @@ export const Search = () => {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(
-        `https://mern-blog-app-one.vercel.app/api/post/getposts?${searchQuery}`
+      const res = await axios.get(
+        `https://mern-blog-app-one.vercel.app/api/post/getposts?${searchQuery}`,
+        {
+          withCredentials: true,
+        }
       );
       if (!res.ok) {
         setLoading(false);
@@ -77,8 +81,11 @@ export const Search = () => {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
-    const res = await fetch(
-      `https://mern-blog-app-one.vercel.app/api/post/getposts${searchQuery}`
+    const res = await axios.get(
+      `https://mern-blog-app-one.vercel.app/api/post/getposts${searchQuery}`,
+      {
+        withCredentials: true,
+      }
     );
     if (!res.ok) {
       return;

@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import { CommentSection } from "../components/CommentSection";
 import PostCard from "../components/PostCard";
+import axios, { Axios } from "axios";
 
 const PostPage = () => {
   const { postSlug } = useParams();
@@ -15,10 +16,13 @@ const PostPage = () => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        const res = await fetch(
-          `https://mern-blog-app-one.vercel.app/api/post/getposts?slug=${postSlug}`
+        const res = await axios.get(
+          `https://mern-blog-app-one.vercel.app/api/post/getposts?slug=${postSlug}`,
+          {
+            withCredentials: true,
+          }
         );
-        const data = await res.json();
+        const data = await res.data;
         if (!res.ok) {
           setError(true);
           setLoading(false);
@@ -40,10 +44,13 @@ const PostPage = () => {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(
-          `https://mern-blog-app-one.vercel.app/api/post/getposts?limit=3`
+        const res = await axios.get(
+          `https://mern-blog-app-one.vercel.app/api/post/getposts?limit=3`,
+          {
+            withCredentials: true,
+          }
         );
-        const data = await res.json();
+        const data = await res.data;
         if (res.ok) {
           setRecentPosts(data.posts);
         }
