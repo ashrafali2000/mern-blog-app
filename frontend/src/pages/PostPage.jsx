@@ -24,7 +24,7 @@ const PostPage = () => {
         );
         console.log("res----postPage------->", res);
         const data = res.data;
-        if (!res.status === 200 || res.status === 201) {
+        if (!res.status === 200 || !res.status === 201) {
           setError(true);
           setLoading(false);
           return;
