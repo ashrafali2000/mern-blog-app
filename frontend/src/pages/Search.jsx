@@ -42,6 +42,7 @@ export const Search = () => {
       }
       if (res.status === 200 || res.status === 201) {
         const data = res.data;
+        console.log("data1-------showmore1--->", data);
         setPosts(data.posts);
         setLoading(false);
         if (data.posts.length === 9) {
@@ -92,6 +93,7 @@ export const Search = () => {
     }
     if (res.status === 200 || res.status === 201) {
       const data = res.data;
+      console.log("data2-------showmore2--->", data);
       setPosts([...posts, ...data.posts]);
       if (data.posts.length === 9) {
         setShowMore(true);
