@@ -32,8 +32,7 @@ export default function Header() {
         }
       );
       const data = res.data;
-      console.log("res----signout------->", res);
-      if (!res.ok) {
+      if (!res.status === 200) {
         console.log("data-error", data.message);
       } else {
         dispatch(signOutSuccess());
