@@ -35,7 +35,7 @@ export const DashSidebar = () => {
         }
       );
       const data = res.data;
-      if (!res.ok) {
+      if (!res.status === 200 || !res.status === 201) {
         console.log("data-error", data.message);
       } else {
         dispatch(signOutSuccess());

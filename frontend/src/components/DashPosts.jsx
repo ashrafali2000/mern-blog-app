@@ -22,10 +22,12 @@ const DashPosts = () => {
             withCredentials: true,
           }
         );
-        const data = res.data;
-        setUserPosts(data.posts);
-        if (data.posts.length < 9) {
-          setShowMore(false);
+        if (res.status === 200 || res.status === 201) {
+          const data = res.data;
+          setUserPosts(data.posts);
+          if (data.posts.length < 9) {
+            setShowMore(false);
+          }
         }
       } catch (error) {
         console.log(error.message);
@@ -44,11 +46,12 @@ const DashPosts = () => {
           withCredentials: true,
         }
       );
-      const data = res.data;
-
-      setUserPosts((prev) => [...prev, ...data.posts]);
-      if (data.posts.length < 9) {
-        setShowMore(false);
+      if (res.status === 200 || res.status === 201) {
+        const data = res.data;
+        setUserPosts((prev) => [...prev, ...data.posts]);
+        if (data.posts.length < 9) {
+          setShowMore(false);
+        }
       }
     } catch (error) {
       console.log(error.message);
@@ -63,10 +66,11 @@ const DashPosts = () => {
           withCredentials: true,
         }
       );
-
-      setUserPosts((prev) =>
-        prev.filter((post) => post._id !== postIdToDelete)
-      );
+      if (res.status === 200 || res.status === 201) {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
+      }
     } catch (error) {
       console.log(error.message);
     }

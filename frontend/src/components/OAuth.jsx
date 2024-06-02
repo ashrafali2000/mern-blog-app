@@ -28,7 +28,7 @@ export default function OAuth() {
         }
       );
       const data = res.data;
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         dispatch(signInSuccess(data));
         navigate("/");
       }

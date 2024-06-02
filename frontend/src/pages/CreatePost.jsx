@@ -69,12 +69,12 @@ function CreatePost() {
         }
       );
       const data = res.data;
-      if (!res.ok) {
+      if (!res.status === 200 || !res.status === 201) {
         setPublishError(data.message);
         return;
       }
 
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         setPublishError(null);
         navigate(`/post/${data.slug}`);
       }

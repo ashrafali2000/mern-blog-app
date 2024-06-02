@@ -14,7 +14,9 @@ export default function Home() {
         }
       );
       const data = await res.data;
-      setPosts(data.posts);
+      if (res.status === 200 || res.status === 201) {
+        setPosts(data.posts);
+      }
     };
     fetchPosts();
   }, []);

@@ -30,10 +30,12 @@ const DashBoardComp = () => {
             withCredentials: true,
           }
         );
-        const data = res.data;
-        setUsers(data.users);
-        setTotalUsers(data.totalUsers);
-        setLastMonthUsers(data.lastMonthUsers);
+        if (res.status === 200 || res.status === 201) {
+          const data = res.data;
+          setUsers(data.users);
+          setTotalUsers(data.totalUsers);
+          setLastMonthUsers(data.lastMonthUsers);
+        }
       } catch (error) {
         console.log(error.message);
       }
@@ -46,11 +48,12 @@ const DashBoardComp = () => {
             withCredentials: true,
           }
         );
-        const data = res.data;
-
-        setPosts(data.posts);
-        setTotalPosts(data.totalPosts);
-        setLastMonthPosts(data.lastMonthPosts);
+        if (res.status === 200 || res.status === 201) {
+          const data = res.data;
+          setPosts(data.posts);
+          setTotalPosts(data.totalPosts);
+          setLastMonthPosts(data.lastMonthPosts);
+        }
       } catch (error) {
         console.log(error.message);
       }
@@ -63,11 +66,12 @@ const DashBoardComp = () => {
             withCredentials: true,
           }
         );
-        const data = res.data;
-
-        setComments(data.comments);
-        setTotalComments(data.totalComments);
-        setLastMonthComments(data.lastMonthComments);
+        if (res.status === 200 || res.status === 201) {
+          const data = res.data;
+          setComments(data.comments);
+          setTotalComments(data.totalComments);
+          setLastMonthComments(data.lastMonthComments);
+        }
       } catch (error) {
         console.log(error.message);
       }

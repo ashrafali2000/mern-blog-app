@@ -87,11 +87,11 @@ export const Search = () => {
         withCredentials: true,
       }
     );
-    if (!res.ok) {
+    if (!res.status === 200 || !res.status === 201) {
       return;
     }
-    if (res.ok) {
-      const data = await res.json();
+    if (res.status === 200 || res.status === 201) {
+      const data = res.data;
       setPosts([...posts, ...data.posts]);
       if (data.posts.length === 9) {
         setShowMore(true);

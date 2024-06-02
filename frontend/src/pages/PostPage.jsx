@@ -22,7 +22,6 @@ const PostPage = () => {
             withCredentials: true,
           }
         );
-        console.log("res----postPage------->", res);
         const data = res.data;
         if (!res.status === 200 || !res.status === 201) {
           setError(true);
@@ -52,7 +51,6 @@ const PostPage = () => {
           }
         );
         const data = res.data;
-        console.log("res----posts------->", res);
         if (res.status === 200 || res.status === 201) {
           setRecentPosts(data.posts);
         }

@@ -30,10 +30,12 @@ export const CommentSection = ({ postId }) => {
           withCredentials: true,
         }
       );
-      const data = res.data;
-      setComment("");
-      setCommentError(null);
-      setComments([data, ...comments]);
+      if (res.status === 200 || res.status === 201) {
+        const data = res.data;
+        setComment("");
+        setCommentError(null);
+        setComments([data, ...comments]);
+      }
     } catch (error) {
       setCommentError(error.message);
     }
@@ -69,20 +71,20 @@ export const CommentSection = ({ postId }) => {
           withCredentials: true,
         }
       );
-
-      const data = res;
-      console.log("data-----data like------>", data);
-      setComments(
-        comments.map((comment) =>
-          comment._id === commentId
-            ? {
-                ...comment,
-                likes: data.likes,
-                numberOfLikes: data.likes.length,
-              }
-            : comment
-        )
-      );
+      if (res.status === 200 || res.status === 201) {
+        const data = res;
+        setComments(
+          comments.map((comment) =>
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  numberOfLikes: data.likes.length,
+                }
+              : comment
+          )
+        );
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -107,8 +109,9 @@ export const CommentSection = ({ postId }) => {
           withCredentials: true,
         }
       );
-      const data = res;
-      setComments(comments.filter((comment) => comment._id !== commentId));
+      if (res.status === 200 || res.status === 201) {
+        setComments(comments.filter((comment) => comment._id !== commentId));
+      }
     } catch (error) {
       console.log(error.message);
     }

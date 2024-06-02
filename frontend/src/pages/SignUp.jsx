@@ -28,12 +28,12 @@ export default function SignUp() {
           withCredentials: true,
         }
       );
-      const data = await res.json();
-      if (data.success === false) {
+      const data = res.data;
+      if (!res.status === 200 || !res.status === 201) {
         return setErrorMessage(data.message);
       }
       setLoading(false);
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         navigate("/sign-in");
       }
     } catch (error) {

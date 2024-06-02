@@ -108,7 +108,7 @@ export const DashProfile = () => {
         }
       );
       const data = res.data;
-      if (!res.ok) {
+      if (!res.status === 200 || !res.status === 201) {
         dispatch(updateFailure(data.message));
         setUpdateUserError(data.message);
       } else {
@@ -131,7 +131,7 @@ export const DashProfile = () => {
         }
       );
       const data = res.data;
-      if (!res.ok) {
+      if (!res.status === 200 || !res.status === 201) {
         dispatch(deleteUserFailure(data.message));
       } else {
         dispatch(deleteUserSuccess(data));
@@ -149,7 +149,7 @@ export const DashProfile = () => {
         }
       );
       const data = res.data;
-      if (!res.ok) {
+      if (!res.status === 200 || !res.status === 201) {
         console.log("data-error", data.message);
       } else {
         dispatch(signOutSuccess());

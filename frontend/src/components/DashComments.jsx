@@ -64,10 +64,11 @@ const DashComments = () => {
           withCredentials: true,
         }
       );
-
-      setComments((prev) =>
-        prev.filter((comment) => comment._id !== commentIdToDelete)
-      );
+      if (res.status === 200 || res.status === 201) {
+        setComments((prev) =>
+          prev.filter((comment) => comment._id !== commentIdToDelete)
+        );
+      }
     } catch (error) {
       console.log(error.message);
     }

@@ -56,7 +56,7 @@ export default function SignIn() {
         }
       );
       const data = res.data;
-      if (data.success === false) {
+      if (!res.status === 200 || !res.status === 201) {
         dispatch(signInFailure(data.message));
       } else {
         dispatch(signInSuccess(data));

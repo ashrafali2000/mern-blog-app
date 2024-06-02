@@ -18,8 +18,10 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
             withCredentials: true,
           }
         );
-        const data = res.data;
-        setUser(data);
+        if (res.status === 200 || res.status === 201) {
+          const data = res.data;
+          setUser(data);
+        }
       } catch (error) {
         console.log(error.message);
       }
@@ -42,8 +44,10 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
           withCredentials: true,
         }
       );
-      setIsEditing(false);
-      onEdit(comment, editContent);
+      if (res.status === 200 || res.status === 201) {
+        setIsEditing(false);
+        onEdit(comment, editContent);
+      }
     } catch (error) {
       console.log(error.message);
     }

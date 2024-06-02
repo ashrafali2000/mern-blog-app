@@ -34,12 +34,12 @@ function UPdatePost() {
           }
         );
         const data = res.data;
-        if (!res.ok) {
+        if (!res.status === 200 || !res.status === 201) {
           console.log(data.message);
           setPublishError(data.message);
           return;
         }
-        if (res.ok) {
+        if (res.status === 200 || res.status === 201) {
           setPublishError(null);
           setFormData(data.posts[0]);
         }

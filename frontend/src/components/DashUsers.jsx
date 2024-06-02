@@ -47,7 +47,7 @@ const DashUsers = () => {
         }
       );
       const data = res.data;
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         setUsers((prev) => [...prev, ...data.users]);
         if (data.users.length < 9) {
           setShowMore(false);
@@ -66,7 +66,7 @@ const DashUsers = () => {
           withCredentials: true,
         }
       );
-      if (!res.ok) {
+      if (!res.status === 200 || !res.status === 201) {
         console.log(data.message);
       } else {
         setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
