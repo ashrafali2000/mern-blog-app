@@ -41,7 +41,7 @@ export const Search = () => {
         return;
       }
       if (res.status === 200 || res.status === 201) {
-        const data = await res.json();
+        const data = res.data;
         setPosts(data.posts);
         setLoading(false);
         if (data.posts.length === 9) {
