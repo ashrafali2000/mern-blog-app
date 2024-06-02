@@ -66,10 +66,7 @@ export const CommentSection = ({ postId }) => {
         return;
       }
       const res = await axios.put(
-        `https://mern-blog-app-one.vercel.app/api/comment/likeComment/${commentId}`,
-        {
-          withCredentials: true,
-        }
+        `https://mern-blog-app-one.vercel.app/api/comment/likeComment/${commentId}`
       );
       if (res.status === 200 || res.status === 201) {
         const data = res.data;
