@@ -12,13 +12,11 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(
+        const res = await axios.get(
           `https://mern-blog-app-one.vercel.app/api/user/${comment.userId}`
         );
-        const data = await res.json();
-        if (res.ok) {
-          setUser(data);
-        }
+        const data = res.data;
+        setUser(data);
       } catch (error) {
         console.log(error.message);
       }
@@ -32,19 +30,13 @@ export const Comment = ({ comment, onLike, onEdit, onDelete }) => {
   };
   const handleSave = async () => {
     try {
-      const res = await fetch(
+      const res = await axios.put(
         `https://mern-blog-app-one.vercel.app/api/comment/editComment/${comment._id}`,
         {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            content: editContent,
-          }),
+          content: editContent,
         }
       );
-      if (res.ok) {
+      if (res) {
         setIsEditing(false);
         onEdit(comment, editContent);
       }
