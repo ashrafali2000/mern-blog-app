@@ -32,7 +32,7 @@ export default function Header() {
         }
       );
       const data = res.data;
-      console.log("data----signout------->", data);
+      console.log("res----signout------->", res);
       if (!res.ok) {
         console.log("data-error", data.message);
       } else {
