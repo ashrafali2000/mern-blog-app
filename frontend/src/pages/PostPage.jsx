@@ -23,7 +23,7 @@ const PostPage = () => {
           }
         );
         console.log("res----postPage------->", res);
-        const data = await res.data;
+        const data = res.data;
         if (!res.status === 200 || res.status === 201) {
           setError(true);
           setLoading(false);
@@ -51,7 +51,7 @@ const PostPage = () => {
             withCredentials: true,
           }
         );
-        const data = await res.data;
+        const data = res.data;
         if (res.status === 200 || res.status === 201) {
           setRecentPosts(data.posts);
         }
