@@ -24,6 +24,7 @@ const DashUsers = () => {
         );
         const data = res.data;
         if (res.ok) {
+          console.log("data-----check----->", data)
           setUsers(data.users);
           if (data.users.length < 9) {
             setShowMore(false);
