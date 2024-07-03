@@ -23,8 +23,7 @@ const DashUsers = () => {
           }
         );
         const data = res.data;
-        if (res.ok) {
-          console.log("data-----check----->", data)
+            if (res.status === 200 || res.status === 201) {
           setUsers(data.users);
           if (data.users.length < 9) {
             setShowMore(false);
